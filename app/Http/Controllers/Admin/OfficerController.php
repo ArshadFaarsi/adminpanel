@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\UserLoginPassword;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\storage;
 
-class UserController extends Controller
+class OfficerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +18,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::orderBy('id', 'DESC')->get();
-        return view('admin.user.index', compact(['data']));
+        $data = User::whereHas('roles', function ($q) {
+            $q->where('title', 'Officer');
+        })->orderBy('id', 'DESC')->get();
+        return view('admin.officer.index', compact('data'));
     }
 
     /**
@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        return view('admin.officer.create');
     }
 
     /**
@@ -42,32 +42,41 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
-            'phone' => 'required',
+            'image' => 'required',
         ]);
 
-        $data = $request->only(['name', 'email', 'phone']);
-        $password = 12345678;
-
-        if ($request->hasfile('image')) {
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-            $file->move('public/admin/assets/img/users', $filename);
-            $data['image'] = 'public/admin/assets/img/users/'.$filename;
+            $file->move(public_path('admin/assets/images/users/'), $filename);
+            $image = 'public/admin/assets/images/users/' . $filename;
+        } else {
+            $image = 'public/admin/assets/images/users/1675332882.jpg';
         }
 
-        $data['password'] = Hash::make($password);
-        $user = User::create($data);
+        /**generate random password */
+        $password = random_int(10000000, 99999999);
+
+        $officer = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($password),
+        ] + ['image' => $image]);
+
+        /** assign the role  */
+        $officer->roles()->sync(2);
 
         $message['email'] = $request->email;
         $message['password'] = $password;
 
         try {
-            Mail::to($request->email)->send(new UserLoginPassword($message));
-            return redirect()->route('user.index')->with(['status' => true, 'message' => 'User Created sucessfully']);
+            // Mail::to($request->email)->send(new UserLoginPassword($message));
+            return redirect()->route('officer.index')->with(['status' => true, 'message' => 'Officer Created sucessfully']);
         } catch (\Throwable $th) {
             dd($th->getMessage());
             return back()
@@ -95,7 +104,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = User::find($id);
-        return view('admin.user.edit', compact(['data']));
+        return view('admin.officer.edit', compact('data'));
     }
 
     /**
@@ -109,30 +118,29 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'phone' => 'required',
-
         ]);
-        $user = User::find($id);
 
+        $officer = User::find($id);
         if ($request->hasfile('image')) {
-            $destination = 'public/admin/assets/img/users' . $user->image;
-            if (File::exists($destination)) {
+            $destination = 'public/admin/assets/images/users' . $officer->image;
+            if (File::exists($destination) || File::exists($officer->image)) {
                 File::delete($destination);
+                File::delete($officer->image);
             }
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-            $file->move('public/admin/assets/img/users', $filename);
-            $image = 'public/admin/assets/img/users/'.$filename;
+            $file->move('public/admin/assets/images/users', $filename);
+            $image = 'public/admin/assets/images/users/' . $filename;
+        } else {
+            $image = $officer->image;
         }
 
-        $user->update([
+        $officer->update([
             'name' => $request->name,
-            'phone' => $request->phone,
-            // 'image' => $image,
-        ]);
+        ] + ['image' => $image]);
 
-        return redirect()->route('user.index')->with(['status' => true, 'message' => 'User Updated sucessfully']);
+        return redirect()->route('officer.index')->with(['status' => true, 'message' => 'Officer Updated sucessfully']);
     }
 
     /**
@@ -144,6 +152,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->back()->with(['status' => true, 'message' => 'User Deleted sucessfully']);
+        return redirect()->back()->with(['status' => true, 'message' => 'Officer Deleted sucessfully']);
+    }
+
+    public function status($id)
+    {
+        $data = User::find($id);
+        $data->update(['is_active' => $data->is_active == 0 ? '1' : '0']);
+        return redirect()->back()->with(['status' => true, 'message' => 'Status Updated sucessfully']);
     }
 }

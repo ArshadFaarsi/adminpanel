@@ -10,7 +10,7 @@
                             <h4>Login</h4>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{url('login')}}" class="needs-validation" novalidate="">
+                            <form method="POST" action="{{url('admin/login')}}" class="needs-validation" novalidate="">
                                 @csrf
                                 <div class="form-group">
                                     <label for="email">Email</label>

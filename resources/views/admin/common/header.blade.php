@@ -13,7 +13,7 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="image" src="{{ asset( isset(Auth::guard('admin')->user()->image) ? Auth::guard('admin')->user()->image: 'public/admin/assets/img/user.png') }}" class="user-img-radious-style"> <span
+                <img alt="image" src="{{ asset( isset(Auth::guard('admin')->user()->image) ? Auth::guard('admin')->user()->image: 'public/admin/assets/images/user.png') }}" class="user-img-radious-style"> <span
                     class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
                 <div class="dropdown-title">{{ Auth::guard('admin')->user()->name }}</div>

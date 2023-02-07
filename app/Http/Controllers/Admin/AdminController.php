@@ -35,8 +35,8 @@ class AdminController extends Controller
             $file =$request->file('image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename = time().'.' . $extension;
-            $file->move(public_path('/admin/assets/img/users/'),$filename);
-            $data['image']='public/admin/assets/img/users/'.$filename;
+            $file->move(public_path('/admin/assets/images/users/'),$filename);
+            $data['image']='public/admin/assets/images/users/'.$filename;
         }
         Admin::find(Auth::guard('admin')->id())->update($data);
         return back()->with(['status'=>true, 'message' => 'Profile Updated Successfully']);

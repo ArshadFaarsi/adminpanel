@@ -118,34 +118,34 @@ function barChartWithImg() {
     "name": "John",
     "points": 35654,
     "color": chart.colors.next(),
-    "bullet": "assets/img/users/user1-round.png"
+    "bullet": "assets/images/users/user1-round.png"
   }, {
     "name": "Damon",
     "points": 65456,
     "color": chart.colors.next(),
-    "bullet": "assets/img/users/user2-round.png"
+    "bullet": "assets/images/users/user2-round.png"
   }, {
     "name": "Patrick",
     "points": 45724,
     "color": chart.colors.next(),
-    "bullet": "assets/img/users/user3-round.png"
+    "bullet": "assets/images/users/user3-round.png"
   }, {
     "name": "Sarah",
     "points": 13654,
     "color": chart.colors.next(),
-    "bullet": "assets/img/users/user4-round.png"
+    "bullet": "assets/images/users/user4-round.png"
   },
   {
     "name": "Pooja",
     "points": 32589,
     "color": chart.colors.next(),
-    "bullet": "assets/img/users/user5-round.png"
+    "bullet": "assets/images/users/user5-round.png"
   },
   {
     "name": "jatin",
     "points": 45895,
     "color": chart.colors.next(),
-    "bullet": "assets/img/users/user6-round.png"
+    "bullet": "assets/images/users/user6-round.png"
   },
   ];
 

@@ -13,7 +13,7 @@
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="{{asset('public/admin/assets/toastr/css/toastr.css')}}">
     <link rel="stylesheet" href="{{ asset('public/admin/assets/css/custom.css') }}">
-    <link rel='shortcut icon' type='image/x-icon' href='{{ asset('public/admin/assets/img/logo1.png') }}' />
+    <link rel='shortcut icon' type='image/x-icon' href='{{ asset('public/admin/assets/images/logo1.png') }}' />
     <link rel="stylesheet" href="{{ asset('public/admin/assets/css/datatables.css') }}">
 
 </head>

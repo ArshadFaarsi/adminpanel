@@ -22,7 +22,7 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td>{!! $data->description !!}</td>
+                                        <td>{!! $data->description ??'' !!}</td>
                                         <td><a href="{{route('terms.edit',$data->id)}}"><i class="fas fa-edit"></i></a></td>
                                     </tr>
 

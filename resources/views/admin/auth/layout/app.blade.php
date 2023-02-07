@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('public/admin/assets/css/components.css') }}">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="{{ asset('public/admin/assets/css/custom.css') }}">
-    <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='assets/images/favicon.ico' />
     @yield('style')
 </head>
 

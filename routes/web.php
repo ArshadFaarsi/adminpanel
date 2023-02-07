@@ -3,10 +3,11 @@
 use App\Http\Controllers\Admin\AboutusController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\OfficerController;
 use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\TermConditionController;
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-/*Admin routes
+/*
+Admin routes
  * */
 Route::get('/admin', [AuthController::class, 'getLoginPage']);
-Route::post('/login', [AuthController::class, 'Login']);
+Route::post('admin/login', [AuthController::class, 'Login']);
 Route::get('/admin-forgot-password', [AdminController::class, 'forgetPassword']);
 Route::post('/admin-reset-password-link', [AdminController::class, 'adminResetPasswordLink']);
 Route::get('/change_password/{id}', [AdminController::class, 'change_password']);
@@ -33,9 +35,14 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('profile', [AdminController::class, 'getProfile']);
     Route::post('update-profile', [AdminController::class, 'update_profile']);
     Route::get('logout', [AdminController::class, 'logout']);
+    /**officer */
+    Route::get('officer/status/{id}', [OfficerController::class, 'status'])->name('officer.status');
+    /**company */
+    Route::get('company/status/{id}', [CompanyController::class, 'status'])->name('company.status');
 
     /** resource controller */
-    Route::resource('user', UserController::class);
+    Route::resource('officer', OfficerController::class);
+    Route::resource('company', CompanyController::class);
     Route::resource('about', AboutusController::class);
     Route::resource('policy', PolicyController::class);
     Route::resource('terms', TermConditionController::class);

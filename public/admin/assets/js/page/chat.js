@@ -117,7 +117,7 @@ for (var i = 0; i < chats.length; i++) {
   if (chats[i].typing != undefined) type = 'typing';
   $.chatCtrl('#mychatbox', {
     text: (chats[i].text != undefined ? chats[i].text : ''),
-    picture: (chats[i].position == 'left' ? 'assets/img/users/user-5.png' : 'assets/img/users/user-1.png'),
+    picture: (chats[i].position == 'left' ? 'assets/images/users/user-5.png' : 'assets/images/users/user-1.png'),
     position: 'chat-' + chats[i].position,
     type: type
   });
@@ -129,7 +129,7 @@ $("#chat-form").submit(function () {
   if (me.find('input').val().trim().length > 0) {
     $.chatCtrl('#mychatbox', {
       text: me.find('input').val(),
-      picture: 'assets/img/users/user-5.png',
+      picture: 'assets/images/users/user-5.png',
     });
     me.find('input').val('');
   }

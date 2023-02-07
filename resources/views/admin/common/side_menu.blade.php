@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html"> <img alt="image" src="{{ asset('public/admin/assets/img/logo1.png') }}"
+            <a href="index.html"> <img alt="image" src="{{ asset('public/admin/assets/images/logo1.png') }}"
                     class="header-logo" /> <span class="logo-name">Typing center</span>
             </a>
         </div>
@@ -11,8 +11,11 @@
                 <a href="{{ url('/admin/dashboard') }}" class="nav-link"><i
                         data-feather="home"></i><span>Dashboard</span></a>
             </li>
-            <li class="dropdown {{ request()->is('admin/user*') ? 'active' : '' }}">
-                <a href="{{ route('user.index') }}" class="nav-link"><i data-feather="users"></i><span>User</span></a>
+            <li class="dropdown {{ request()->is('admin/company*') ? 'active' : '' }}">
+                <a href="{{ route('company.index') }}" class="nav-link"><i data-feather="users"></i><span>Company</span></a>
+            </li>
+            <li class="dropdown {{ request()->is('admin/officer*') ? 'active' : '' }}">
+                <a href="{{ route('officer.index') }}" class="nav-link"><i data-feather="users"></i><span>Officer</span></a>
             </li>
             <li class="dropdown {{ request()->is('admin/about*') ? 'active' : '' }}">
                 <a href="{{ route('about.index') }}" class="nav-link"><i data-feather="monitor"></i><span>About

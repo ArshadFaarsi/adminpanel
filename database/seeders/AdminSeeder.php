@@ -17,9 +17,9 @@ class AdminSeeder extends Seeder
         Admin::create([
             'name'=>'admin',
             'email'=>'admin@gmail.com',
-            'phone'=>'03015262920',
+            'phone'=>'0123456789',
             'password'=>bcrypt(12345678),
-            'image'=>'abc',
+            'image'=>'public/admin/assets/images/users/admin.png',
         ]);
     }
 }
